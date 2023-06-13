@@ -4,8 +4,14 @@ const lista = document.getElementById("lista");   //capitura a lista
 form.addEventListener("submit", (evento) => {
   evento.preventDefault();
 
- criaElemento(evento.target.elements["nome"].value,evento.target.elements["quantidade"].value)
- const quantidade = evento.target.elements['quantidade'].value;  
+  const nome = evento.target.elements['nome']
+  const quantidade = evento.target.elements['quantidade']
+
+ criaElemento(nome.value,quantidade.value)
+ 
+ 
+ nome.value = ""    //esvaziar formulário
+ quantidade.value = ""
   
 });
 
@@ -24,5 +30,8 @@ function criaElemento(nome, quantidade) {
   novoItem.appendChild(nomeItem); // Adiciona o elemento do nome do item
   
   lista.appendChild(novoItem);
+
+  localStorage.setItem("nome",nome)  //salvar informação no localStorage
+  localStorage.setItem("quantidade",quantidade)
 
 }
