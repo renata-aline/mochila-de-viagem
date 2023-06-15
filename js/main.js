@@ -1,6 +1,11 @@
 const form = document.getElementById("novoItem"); //captura formulário
 const lista = document.getElementById("lista");   //capitura a lista
-const itens = []
+const itens = JSON.parse(localStorage.getItem("itens"))|| []
+
+
+itens.forEach((elemento) => {
+  console.log(elemento.nome, elemento.quantidade)
+})
 
 form.addEventListener("submit", (evento) => {
   evento.preventDefault();
@@ -39,7 +44,7 @@ function criaElemento(nome, quantidade) {
 
   itens.push(itemAtual)     //incerir elemento no array
 
-  localStorage.setItem("item", JSON.stringify(itens))  
+  localStorage.setItem("itens", JSON.stringify(itens))  
 
 
 }
