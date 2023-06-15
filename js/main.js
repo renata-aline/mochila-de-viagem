@@ -4,7 +4,7 @@ const itens = JSON.parse(localStorage.getItem("itens"))|| []
 
 
 itens.forEach((elemento) => {
-  console.log(elemento.nome, elemento.quantidade)
+  criaElemento(elemento)
 })
 
 form.addEventListener("submit", (evento) => {
@@ -13,38 +13,41 @@ form.addEventListener("submit", (evento) => {
   const nome = evento.target.elements['nome']
   const quantidade = evento.target.elements['quantidade']
 
- criaElemento(nome.value,quantidade.value)
- 
- 
- nome.value = ""    //esvaziar formulário
- quantidade.value = ""
+  const itemAtual = {
+    "nome": nome.value,
+    "quantidade": quantidade.value
+  }
+  
+
+  criaElemento(itemAtual)
+
+
+  itens.push(itemAtual)     //incerir elemento no array
+
+  localStorage.setItem("itens", JSON.stringify(itens))  
+
+
+  nome.value = ""    //esvaziar formulário
+  quantidade.value = ""
   
 });
 
-function criaElemento(nome, quantidade) {
+function criaElemento(item) {
   
   const novoItem = document.createElement("li"); //cria novo item e adiciona na li
   novoItem.classList.add("item");
 
   const numeroItem = document.createElement('strong'); // Insere uma tag strong para o número
-  numeroItem.innerHTML = quantidade; // A quantidade do item fica dentro do HTML
+  numeroItem.innerHTML = item.quantidade; // A quantidade do item fica dentro do HTML
   
   const nomeItem = document.createElement('span'); // Cria um elemento para o nome do item
-  nomeItem.innerHTML = nome; // Define o valor do nome do item
+  nomeItem.innerHTML = item.nome; // Define o valor do nome do item
   
   novoItem.appendChild(numeroItem); // Adiciona, dentro da tag strong, o número do item
   novoItem.appendChild(nomeItem); // Adiciona o elemento do nome do item
   
   lista.appendChild(novoItem);
 
-  const itemAtual = {
-    "nome": nome,
-    "quantidade": quantidade
-  }
-
-  itens.push(itemAtual)     //incerir elemento no array
-
-  localStorage.setItem("itens", JSON.stringify(itens))  
-
+ 
 
 }
