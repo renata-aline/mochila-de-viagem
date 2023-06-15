@@ -25,6 +25,8 @@ form.addEventListener("submit", (evento) => {
 
     atualizaElemento(itemAtual)
 
+     
+
   } else {
     itemAtual.id = itens.length;
 
@@ -58,5 +60,5 @@ function criaElemento(item) {
 }
 
 function atualizaElemento(item){
-  document.querySelector("[data-id'"=+item.id+"']").innerHTML = item.quantidade
+  document.querySelector("[data-id='"+item.id+"']").innerHTML = item.quantidade
 }
