@@ -53,6 +53,8 @@ function criaElemento(item) {
   const nomeItem = document.createElement("span"); // Cria um elemento para o nome do item
   nomeItem.innerHTML = item.nome; // Define o valor do nome do item
 
+  nomeItem.appendChild(botaoDeleta())
+
   novoItem.appendChild(numeroItem); // Adiciona, dentro da tag strong, o número do item
   novoItem.appendChild(nomeItem); // Adiciona o elemento do nome do item
 
@@ -61,4 +63,12 @@ function criaElemento(item) {
 
 function atualizaElemento(item){
   document.querySelector("[data-id='"+item.id+"']").innerHTML = item.quantidade
+}
+
+function botaoDeleta() {
+  const elementoBotao = document.createElement("button")
+  elementoBotao.innerText = "x"
+
+  return elementoBotao
+
 }
