@@ -25,10 +25,10 @@ form.addEventListener("submit", (evento) => {
 
     atualizaElemento(itemAtual)
 
-    itens[existe.id] = itemAtual 
+    itens[itens.findIndex(elemento => elemento.id === existe.id)] = itemAtual 
 
   } else {
-    itemAtual.id = itens.length;
+    itemAtual.id = itens[itens.length-1] ? (itens[itens.length-1]).id + 1 : 0;// se tiver vazio aplica zero se não pega ultimo da lista e acrescenta mais 1
 
     criaElemento(itemAtual);
 
@@ -53,7 +53,7 @@ function criaElemento(item) {
   const nomeItem = document.createElement("span"); // Cria um elemento para o nome do item
   nomeItem.innerHTML = item.nome; // Define o valor do nome do item
 
-  novoItem.appendChild(botaoDeleta())
+  novoItem.appendChild(botaoDeleta(item.id))
 
   novoItem.appendChild(numeroItem); // Adiciona, dentro da tag strong, o número do item
   novoItem.appendChild(nomeItem); // Adiciona o elemento do nome do item
@@ -65,18 +65,22 @@ function atualizaElemento(item){
   document.querySelector("[data-id='"+item.id+"']").innerHTML = item.quantidade
 }
 
-function botaoDeleta() {
+function botaoDeleta(id) {
   const elementoBotao = document.createElement("button")
   elementoBotao.innerText = "x"
 
   elementoBotao.addEventListener("click",function(){
-    deletaElemento(this.parentNode)
+    deletaElemento(this.parentNode,id)
   })
 
   return elementoBotao
 
 }
 
-function deletaElemento(tag){
+function deletaElemento(tag,id){
   tag.remove()
+
+  itens.splice(itens.findIndex(elemento => elemento.id === id),1) //acha o elemento que eu removi e deleta
+  localStorage.setItem("itens",JSON.stringify(itens))  //escreve no localStorage
+
 }
